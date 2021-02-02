@@ -1,0 +1,49 @@
+micronaut:
+  application:
+    name: protonaut
+  server:
+    port: 8080
+  router:
+    versioning:
+      enabled: true
+      default-version: 1
+      parameter:
+        enabled: false
+        names: 'v,api-version'
+      header:
+        enabled: true
+        names:
+          - 'X-API-VERSION'
+          - 'Accept-Version'
+
+endpoints:
+  all:
+    sensitive: false
+    enabled: true
+
+datasources:
+  default:
+    url: 'jdbc:mysql://localhost:3306/micronaut_flyway'
+    username: root
+    password: 1234
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+jpa:
+  default:
+    packages-to-scan:
+      - 'protonaut'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: validate
+        show_sql: false
+
+flyway:
+  datasources:
+    default:
+      locations: classpath:databasemigrations
+
+app:
+  country: BY
+#  external-client:
+#    name: test

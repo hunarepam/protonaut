@@ -1,0 +1,65 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "6.0.0"
+    id "io.micronaut.application" version '1.2.0'
+}
+
+version "0.1"
+group "protonaut"
+
+ext {
+    micronautDataVersion = "2.0.0"
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+micronaut {
+    runtime "netty"
+    testRuntime "junit5"
+    processing {
+        incremental true
+        annotations "protonaut.*"
+    }
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-inject-java")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
+    annotationProcessor("javax.persistence:javax.persistence-api:2.2")
+
+    implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("javax.annotation:javax.annotation-api")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-inject-java")
+    implementation("io.micronaut.configuration:micronaut-jdbc-hikari:2.2.6")
+    implementation("io.micronaut.configuration:micronaut-hibernate-jpa:2.1.0")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion")
+    implementation("ma.glasnost.orika:orika-core:1.5.4")
+    implementation("io.micronaut:micronaut-management")
+
+    compile("io.micronaut.configuration:micronaut-flyway:1.2.0")
+
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtime("io.micronaut:micronaut-core")
+    runtime("mysql:mysql-connector-java:8.0.13")
+
+    testAnnotationProcessor ("io.micronaut:micronaut-inject-java")
+    testCompile("org.mockito:mockito-junit-jupiter:3.7.7")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+mainClassName = "protonaut.Application"
+java {
+    sourceCompatibility = JavaVersion.toVersion('11')
+    targetCompatibility = JavaVersion.toVersion('11')
+}
+
+
+
+
